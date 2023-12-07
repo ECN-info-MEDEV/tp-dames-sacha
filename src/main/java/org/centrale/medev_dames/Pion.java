@@ -5,7 +5,9 @@
 package org.centrale.medev_dames;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -75,40 +77,79 @@ public class Pion {
      */
     public void movement(List<Pion> casesLibres) {
         Scanner scanner = new Scanner(System.in);
-        List <Pion> casesLibresPion = new ArrayList<>();
-        
+        List<Pion> casesLibresPion = new ArrayList<>();
+        int pos_x = 0;
+        int pos_y = 0;
+        boolean caseValide = false;
         if (dame) {
-            System.out.println("Las casillas libres para la dama son:");
+            System.out.println("Les cases libres pour la dame sont :");
             for (Pion cases : casesLibres) {
                 System.out.println("(" + cases.getX() + ", " + cases.getY() + ")");
             }
-            System.out.println("Ingrese las coordenadas de la casilla a la que desea mover el pion:");
-            do{
-                int x = scanner.nextInt();
-                int y = scanner.nextInt();
-            }while();
-            this.setX(x);
-            this.setY(y);
+            do {
+                System.out.println("Veuillez entrer les coordonnées de la case vers laquelle vous souhaitez déplacer la dame:");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+                caseValide = casesLibres.stream().anyMatch(c -> c.getX() == pos_x && c.getY() == pos_y);
+                if (!caseValide) {
+                    System.out.println("La case saisie n'est pas valide. Veuillez réessayer..");
+                }
+            } while (!caseValide);
         } else {
-            System.out.println("Las casillas libres para el pion son:");
+            System.out.println("Les cases libres pour le pion sont:");
             if (casesLibres.size() > 1) {
                 System.out.println("(" + casesLibres.get(0).getX() + ", " + casesLibres.get(0).getY() + ")");
                 casesLibresPion.add(new Pion(casesLibres.get(0).getX(), casesLibres.get(0).getY(), ""));
                 System.out.println("(" + casesLibres.get(1).getX() + ", " + casesLibres.get(1).getY() + ")");
                 casesLibresPion.add(new Pion(casesLibres.get(1).getX(), casesLibres.get(1).getY(), ""));
-                
+
             } else if (casesLibres.size() == 1) {
                 System.out.println("(" + casesLibres.get(0).getX() + ", " + casesLibres.get(0).getY() + ")");
                 casesLibresPion.add(new Pion(casesLibres.get(0).getX(), casesLibres.get(0).getY(), ""));
             } else {
-                System.out.println("No hay casillas libres para el pion.");
+                System.out.println("Il n'y a pas de cases libres pour le pion..");
             }
-            
+            do {
+                System.out.println("Veuillez entrer les coordonnées de la case vers laquelle vous souhaitez déplacer le pion:");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+                caseValide = casesLibresPion.stream().anyMatch(c -> c.getX() == pos_x && c.getY() == pos_y);
+                if (!caseValide) {
+                    System.out.println("La case saisie n'est pas valide. Veuillez réessayer.");
+                }
+
+            } while (!caseValide);
+        }
+
+        if (!casesLibres.isEmpty()) {
+            do {
+                System.out.println("Veuillez entrer les coordonnées de la case vers laquelle vous souhaitez déplacer le pion:");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+                caseValide = casesLibresPion.stream().anyMatch(c -> c.getX() == x && c.getY() == y);
+                if (!caseValide) {
+                    System.out.println("La case saisie n'est pas valide. Veuillez réessayer.");
+                }
+
+                // Verificar si se ha comido un peón
+                if (caseValide) {
+                    Pion pionMovido = new Pion(x, y, color);
+                    manger(casesLibres, pionMovido);
+                }
+
+            } while (!caseValide);
         }
     }
 
-    public void manger(List<Pion> pions) {
-
+    public void manger(List<Pion> pions, Pion pion_A_Manger) {
+        Iterator<Pion> iterator = pions.iterator();
+        while (iterator.hasNext()) {
+            Pion peon = iterator.next();
+            if (peon.getX() == pion_A_Manger.getX() && peon.getY() == pion_A_Manger.getY() && !peon.getColor().equals(pion_A_Manger.getColor())) {
+                iterator.remove(); // Elimina el peón de otro color
+                break; // Solo se permite comer un peón a la vez
+            }
+        }
     }
 
     public void test() {
