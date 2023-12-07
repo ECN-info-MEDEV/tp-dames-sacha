@@ -16,18 +16,20 @@ public class Pion {
     private int x;
     private int y;
     private boolean dame;
+    private String color;
     //movimiento(List<pion>), comer(List<pion>)
     //---------------CONSTRUCTORS--------------
 
-    public Pion() {
+    public Pion(String color) {
         x=0;
         y=0;
         dame=false;
     }
 
-    public Pion(int x, int y) {
+    public Pion(int x, int y, String color) {
         this.x = x;
         this.y = y;
+        this.color = color;
         this.dame = false;
     }
 
@@ -74,5 +76,15 @@ public class Pion {
     public void test(){
         System.out.println("test");
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    
 
 }
