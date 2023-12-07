@@ -9,8 +9,10 @@ package org.centrale.medev_dames;
  * @author sacha
  */
 public class Medev_dames {
-
+    
+    
+    
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Game.main(args);
     }
 }

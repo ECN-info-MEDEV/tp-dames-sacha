@@ -86,5 +86,17 @@ public class Pion {
     }
     
     
-
+    
+    /**
+     * @return Sting representation of the Pion for the show() method in Damier class
+     */
+    public String getRep() {
+        String rep;
+        if (dame){
+            return ":"+color+":";
+        }
+        else{
+            return " "+color+" ";
+        }
+    }
 }

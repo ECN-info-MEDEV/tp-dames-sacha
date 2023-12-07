@@ -2,6 +2,7 @@ package org.centrale.medev_dames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -10,14 +11,10 @@ import java.util.List;
 public class Damier {
     
     private ArrayList<Pion> listePions;
-    private Joueur j1;
-    private Joueur j2;
     private static final int LARGEUR = 10;
     
     public Damier(){
         listePions = new ArrayList<>();
-        j1 = new Joueur();
-        j2 = new Joueur();
     }
     
     public void init(){
@@ -34,8 +31,10 @@ public class Damier {
     }
     
     
+    /**
+     * Shows the Damier with its Pions
+     */
     public void show() {
-        // create a 10x10 String array to represent the plateau
         String[][] plateau = new String[LARGEUR][LARGEUR];
         // fill the array with empty spaces
         for (int i = 0; i < LARGEUR; i++) {
@@ -43,12 +42,10 @@ public class Damier {
                 plateau[i][j] = " . ";
             }
         }
-        // loop through the listePions and place the corresponding string on the plateau
         for (Pion p : listePions) {
-            String pieceRepresentation = getRep(p);
+            String pieceRepresentation = p.getRep();
             plateau[p.getX()][p.getY()] = pieceRepresentation;
         }
-        // print the plateau with borders and coordinates
         System.out.println("    0  1  2  3  4  5  6  7  8  9");
         System.out.println("  +------------------------------+");
         for (int i = 0; i < LARGEUR; i++) {
@@ -60,25 +57,40 @@ public class Damier {
         }
         System.out.println("  +------------------------------+");
     }
-
-    public String getRep(Pion p) {
-        String rep;
-        if (p.getColor().equals("B")) {
-            if (p.isDame()){
-                rep = ":B:";
-            }
-            else{
-                rep = " B ";
-            }
-        } else {
-            if (p.isDame()){
-                rep = ":W:";
-            }
-            else{
-                rep = " W ";
-            }
-        }
-        return rep;
+    
+    public void turn(String color){
+        Pion p = selectPion();
     }
+    
+    public Pion selectPion() {
+        System.out.println("Select a Pion:");
+        for (int i = 0; i < listePions.size(); i++) {
+            Pion p = listePions.get(i);
+            System.out.println(i + " : [" + p.getX() + ", " + p.getY() + "]");
+        }
+        System.out.println("TEST");
+        int selectedNumber = getInput();
+        while (selectedNumber < 0 || selectedNumber >= listePions.size()) {
+            System.out.println("Invalid selection. Please choose a number between 0 and " + (listePions.size() - 1) + ".");
+            selectedNumber = getInput();
+        }
+        return listePions.get(selectedNumber);
+    }
+
+    private int getInput() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("TEST _ TEST");
+        try {
+            int input = scan.nextInt();
+            scan.nextLine(); 
+            System.out.println("okay" + input);
+            return input;
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scan.nextLine();
+            return getInput();
+        }
+    }
+
 
 }
