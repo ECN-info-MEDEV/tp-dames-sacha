@@ -4,6 +4,7 @@
  */
 package org.centrale.medev_dames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,9 +22,9 @@ public class Pion {
     //---------------CONSTRUCTORS--------------
 
     public Pion(String color) {
-        x=0;
-        y=0;
-        dame=false;
+        x = 0;
+        y = 0;
+        dame = false;
     }
 
     public Pion(int x, int y, String color) {
@@ -34,9 +35,9 @@ public class Pion {
     }
 
     //---------------GETTERS & SETTERS---------
-    public int getX(){
+    public int getX() {
         return x;
-        
+
     }
 
     public void setX(int x) {
@@ -54,27 +55,9 @@ public class Pion {
     public boolean isDame() {
         return dame;
     }
-    
-    public void setDame(boolean dame) {    
-        this.dame = dame;
-    }
 
-    //---------------METHODES------------------
-    /**
-     *
-     * @param pions
-     */
-    public void movement(List <Pion> pions) {
-        if (dame) {
-            
-        }
-    }
-    public void manger(List <Pion> pions){
-        
-    }
-    
-    public void test(){
-        System.out.println("test");
+    public void setDame(boolean dame) {
+        this.dame = dame;
     }
 
     public String getColor() {
@@ -84,7 +67,95 @@ public class Pion {
     public void setColor(String color) {
         this.color = color;
     }
-    
-    
+
+    //---------------METHODES------------------
+    /**
+     *
+     * @param casesLibres
+     */
+    public void movement(List<Pion> casesLibres) {
+        Scanner scanner = new Scanner(System.in);
+        List <Pion> casesLibresPion = new ArrayList<>();
+        
+        if (dame) {
+            System.out.println("Las casillas libres para la dama son:");
+            for (Pion cases : casesLibres) {
+                System.out.println("(" + cases.getX() + ", " + cases.getY() + ")");
+            }
+            System.out.println("Ingrese las coordenadas de la casilla a la que desea mover el pion:");
+            do{
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+            }while();
+            this.setX(x);
+            this.setY(y);
+        } else {
+            System.out.println("Las casillas libres para el pion son:");
+            if (casesLibres.size() > 1) {
+                System.out.println("(" + casesLibres.get(0).getX() + ", " + casesLibres.get(0).getY() + ")");
+                casesLibresPion.add(new Pion(casesLibres.get(0).getX(), casesLibres.get(0).getY(), ""));
+                System.out.println("(" + casesLibres.get(1).getX() + ", " + casesLibres.get(1).getY() + ")");
+                casesLibresPion.add(new Pion(casesLibres.get(1).getX(), casesLibres.get(1).getY(), ""));
+                
+            } else if (casesLibres.size() == 1) {
+                System.out.println("(" + casesLibres.get(0).getX() + ", " + casesLibres.get(0).getY() + ")");
+                casesLibresPion.add(new Pion(casesLibres.get(0).getX(), casesLibres.get(0).getY(), ""));
+            } else {
+                System.out.println("No hay casillas libres para el pion.");
+            }
+            
+        }
+    }
+
+    public void manger(List<Pion> pions) {
+
+    }
+
+    public void test() {
+        System.out.println("test");
+    }
+
+    public List<Pion> getCasesLibres(List<Pion> pions) {
+        List<Pion> casillasLibres = new ArrayList<>();
+        int X = this.getX();
+        int Y = this.getY();
+        int i = 1;
+        while (X + i < 8 && y + i < 8) {
+            if (pions.stream().noneMatch(p -> p.getX() == X + i && p.getY() == Y + i)) {
+                casillasLibres.add(new Pion(X + i, Y + i, ""));
+            } else {
+                break;
+            }
+            i++;
+        }
+        i = 1;
+        while (X - i >= 0 && y + i < 8) {
+            if (pions.stream().noneMatch(p -> p.getX() == X - i && p.getY() == Y + i)) {
+                casillasLibres.add(new Pion(X - i, Y + i, ""));
+            } else {
+                break;
+            }
+            i++;
+        }
+        i = 1;
+        while (X + i < 8 && y - i >= 0) {
+            if (pions.stream().noneMatch(p -> p.getX() == X + i && p.getY() == Y - i)) {
+                casillasLibres.add(new Pion(X + i, Y - i, ""));
+            } else {
+                break;
+            }
+            i++;
+        }
+        i = 1;
+        while (X - i >= 0 && y - i >= 0) {
+            if (pions.stream().noneMatch(p -> p.getX() == X - i && p.getY() == Y - i)) {
+                casillasLibres.add(new Pion(X - i, Y - i, ""));
+            } else {
+                break;
+            }
+            i++;
+        }
+        return casillasLibres;
+    }
 
 }
