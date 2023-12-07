@@ -21,50 +21,64 @@ public class Damier {
     }
     
     public void init(){
-        
         for (int i = 0; i < LARGEUR; i=i+2) {
-            listePions.add(new Pion(i,0, "W"));
-            listePions.add(new Pion(i,2, "W"));
-            listePions.add(new Pion(i+1,1, "W"));
-            listePions.add(new Pion(i+1,3, "W"));
-            listePions.add(new Pion(i+1,LARGEUR, "B"));
-            listePions.add(new Pion(i+1,LARGEUR-2, "B"));
-            listePions.add(new Pion(i,LARGEUR-1, "B"));
-            listePions.add(new Pion(i,LARGEUR-3, "B"));
+            listePions.add(new Pion(0,i, "W"));
+            listePions.add(new Pion(2,i, "W"));
+            listePions.add(new Pion(1,i+1, "W"));
+            listePions.add(new Pion(3,i+1, "W"));
+            listePions.add(new Pion(LARGEUR-1,i+1, "B"));
+            listePions.add(new Pion(LARGEUR-3,i+1, "B"));
+            listePions.add(new Pion(LARGEUR-2,i, "B"));
+            listePions.add(new Pion(LARGEUR-4,i, "B"));
         }
     }
     
     
     public void show() {
-        // create a 10x10 char array to represent the plateau
-        char[][] plateau = new char[LARGEUR][LARGEUR];
+        // create a 10x10 String array to represent the plateau
+        String[][] plateau = new String[LARGEUR][LARGEUR];
         // fill the array with empty spaces
         for (int i = 0; i < LARGEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                plateau[i][j] = ' ';
+                plateau[i][j] = " . ";
             }
         }
-        // loop through the listePions and place the corresponding char on the plateau
+        // loop through the listePions and place the corresponding string on the plateau
         for (Pion p : listePions) {
-            // use 'w' for white pions, 'W' for white dames, 'b' for black pions, and 'B' for black dames
-            char c = p.getColor().charAt(0);
-            if (p.isDame()) {
-                c = Character.toUpperCase(c);
-            }
-            plateau[p.getX()][p.getY()] = c;
+            String pieceRepresentation = getRep(p);
+            plateau[p.getX()][p.getY()] = pieceRepresentation;
         }
         // print the plateau with borders and coordinates
-        System.out.println("  0 1 2 3 4 5 6 7 8 9");
-        System.out.println(" +--------------------+");
+        System.out.println("    0  1  2  3  4  5  6  7  8  9");
+        System.out.println("  +------------------------------+");
         for (int i = 0; i < LARGEUR; i++) {
-            System.out.print(i + "|");
+            System.out.print(i + " |");
             for (int j = 0; j < LARGEUR; j++) {
-                System.out.print(plateau[i][j] + " ");
+                System.out.print(plateau[i][j]);
             }
             System.out.println("|");
         }
-        System.out.println(" +--------------------+");
+        System.out.println("  +------------------------------+");
     }
 
-    
+    public String getRep(Pion p) {
+        String rep;
+        if (p.getColor().equals("B")) {
+            if (p.isDame()){
+                rep = ":B:";
+            }
+            else{
+                rep = " B ";
+            }
+        } else {
+            if (p.isDame()){
+                rep = ":W:";
+            }
+            else{
+                rep = " W ";
+            }
+        }
+        return rep;
+    }
+
 }
