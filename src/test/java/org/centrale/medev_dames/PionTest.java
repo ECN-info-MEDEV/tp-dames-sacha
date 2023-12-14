@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 
 /**
- *
- * @author bebom
+ * @author Sacha et Mario
  */
 public class PionTest {
     
