@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author Sacha et Mario
  */
 public class Pion {
-
+    private int 
     //---------------ATTRIBUTES---------------
     private int x;
     private int y;
