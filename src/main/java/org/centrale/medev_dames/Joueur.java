@@ -6,7 +6,7 @@ package org.centrale.medev_dames;
 
 /**
  *
- * @author sacha
+ *  @author Sacha et Mario
  */
 public class Joueur {
     

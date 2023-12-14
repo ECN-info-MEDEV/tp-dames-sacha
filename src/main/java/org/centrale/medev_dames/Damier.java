@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author sacha
+ *  @author Sacha et Mario
  */
 public class Damier {
     

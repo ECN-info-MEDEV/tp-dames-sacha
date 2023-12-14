@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author sacha
+ * @author Sacha et Mario
  */
 public class Pion {
 
@@ -160,10 +160,12 @@ public class Pion {
         List<Pion> casillasLibres = new ArrayList<>();
         int X = this.getX();
         int Y = this.getY();
+
         int i = 1;
-        while (X + i < 8 && y + i < 8) {
-            if (pions.stream().noneMatch(p -> p.getX() == X + i && p.getY() == Y + i)) {
-                casillasLibres.add(new Pion(X + i, Y + i, ""));
+        while (X + i < 8 && Y + i < 8) {
+            final int finalI = i;  
+            if (pions.stream().noneMatch(p -> p.getX() == X + finalI && p.getY() == Y + finalI)) {
+                casillasLibres.add(new Pion(X + finalI, Y + finalI, ""));
             } else {
                 break;
             }
@@ -171,8 +173,9 @@ public class Pion {
         }
         i = 1;
         while (X - i >= 0 && y + i < 8) {
-            if (pions.stream().noneMatch(p -> p.getX() == X - i && p.getY() == Y + i)) {
-                casillasLibres.add(new Pion(X - i, Y + i, ""));
+            final int finalI = i;  
+            if (pions.stream().noneMatch(p -> p.getX() == X - finalI && p.getY() == Y + finalI)) {
+                casillasLibres.add(new Pion(X - finalI, Y + finalI, ""));
             } else {
                 break;
             }
@@ -180,8 +183,9 @@ public class Pion {
         }
         i = 1;
         while (X + i < 8 && y - i >= 0) {
-            if (pions.stream().noneMatch(p -> p.getX() == X + i && p.getY() == Y - i)) {
-                casillasLibres.add(new Pion(X + i, Y - i, ""));
+            final int finalI = i;  
+            if (pions.stream().noneMatch(p -> p.getX() == X + finalI && p.getY() == Y - finalI)) {
+                casillasLibres.add(new Pion(X + finalI, Y - finalI, ""));
             } else {
                 break;
             }
@@ -189,8 +193,9 @@ public class Pion {
         }
         i = 1;
         while (X - i >= 0 && y - i >= 0) {
-            if (pions.stream().noneMatch(p -> p.getX() == X - i && p.getY() == Y - i)) {
-                casillasLibres.add(new Pion(X - i, Y - i, ""));
+            final int finalI = i;  
+            if (pions.stream().noneMatch(p -> p.getX() == X - finalI && p.getY() == Y - finalI)) {
+                casillasLibres.add(new Pion(X - finalI, Y - finalI, ""));
             } else {
                 break;
             }
